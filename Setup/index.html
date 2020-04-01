@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Jarppe VS Mörkö</title>
+    <script src="vue.js"></script>
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+    <div id="app">
+        <section class="row controls" v-if="gameRunning">
+            <div class="small-12 columns">
+                <h1 class="text-center">JARPPE VS MÖRKÖ</h1>
+                <h1 class="text-center">THE GAME</h1>
+                <p class="text-center">By Santtu Haka</p>
+            </div>
+        </section>
+
+        <section class="row" v-if="gameRunning">
+            <div class="small-6 columns">
+                <h1 class="text-center">JARPPE</h1>
+                <div class="healthbar">
+                    <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="{width: playerHealth + '%'}">
+                        Health: {{ playerHealth }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="small-6 columns">
+                <h1 class="text-center">MÖRKÖ</h1>
+                <div class="healthbar">
+                    <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="{width: monsterHealth + '%'}">
+                        Health: {{ monsterHealth }}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="row controls" v-if="!gameRunning">
+            <div class="small-12 columns">
+                <button id="start-game" @click="startGame">Aloitappa peli</button>
+            </div>
+        </section>
+        <section class="row controls" v-else>
+            <div class="small-12 columns">
+                <button id="attack" @click="attack">LÄIMÄSE</button>
+                <button id="special-attack" @click="specialAttack">SUPERSLÄP ({{ superSlap }})</button>
+                <button id="heal" @click="heal">SYÖ OMPPU ({{ omppu }})</button>
+                <button id="give-up" @click="giveUp">JUOKSE HANEE</button>
+            </div>
+        </section>
+        <section class="row log" v-if="turns.length > 0 && gameRunning">
+            <div class="small-12 columns">
+                <ul>
+                    <li v-for="turn in turns" :class="{'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer}">
+                        {{ turn.text }}
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
